@@ -1,0 +1,18 @@
+:root {
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 16px;
+  background-color: #fff;
+
+
+  --vw_25: 0.25vw;
+  --vw_50: 0.5vw; 
+  --vw_100: 1vw; 
+  
+  --vw: calc(100 * var(--vw));
+  --vh: calc(100 * var(--vh));
+
+  --vw_full_width: calc(100 * var(--vw));
+  --vh_full_height: calc(100 * var(--vh));
+}
