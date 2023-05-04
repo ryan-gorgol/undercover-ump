@@ -96,7 +96,7 @@ export default Matchup
 
 const S = {
   Page: styled.div`
-    width: var(--vw_full_width);
+    width: calc(100% - 1rem);
     height: fit-content;
     background: white;
     color: black;

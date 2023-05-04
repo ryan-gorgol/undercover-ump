@@ -10,6 +10,11 @@ export default function BoxScoreComponent({ boxScore, lineScore }: any) {
   const awayTeamName = boxScore?.teams?.away?.team?.clubName;
   const homeScore = boxScore?.teams?.home?.teamStats?.batting?.runs
   const awayScore = boxScore?.teams?.away?.teamStats?.batting?.runs
+  const timeObj = boxScore?.info.find((item: any) => item.label === 'T');
+  const attendanceObj = boxScore?.info.find((item: any) => item.label === 'Att');
+
+  const gameTime = timeObj ? timeObj.value : '';
+  const attendance = attendanceObj ? attendanceObj.value : '';
 
   // calculate these variables as data returned by the api is inconsistent
   let weather = '';
@@ -259,6 +264,8 @@ if (awayStartingPitcherId) {
         weather={weather}
         firstPitch={firstPitch}
         excitementScore={excitementScore}
+        gameTime={gameTime}
+        attendance={attendance}
       />
 
       <Matchup
