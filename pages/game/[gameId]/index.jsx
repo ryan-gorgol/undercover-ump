@@ -2,7 +2,7 @@ import React from 'react'
 import axios from 'axios'
 import Game from '../../../components/Game'
 
-export default function Index({ boxScore, lineScore }: any) {
+export default function Index({ boxScore, lineScore }) {
 
   console.log(boxScore, 'box')
   console.log(lineScore, 'line')
@@ -12,7 +12,7 @@ export default function Index({ boxScore, lineScore }: any) {
   )
 }
 
-export async function getServerSideProps(context: any) {
+export async function getServerSideProps(context) {
   const gameId = context.params.gameId;
   
   const boxScoreApiUrl = `http://statsapi.mlb.com/api/v1/game/${gameId}/boxscore`;
