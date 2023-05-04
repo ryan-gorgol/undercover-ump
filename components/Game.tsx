@@ -171,18 +171,6 @@ export default function BoxScoreComponent({ boxScore, lineScore }: any) {
 
     calculateCompetitiveGame()
   }, [awayScore, boxScore, lineScore, homeScore])
-  
-
-
-  // const handleToggleGameScoreVisibility = () => {
-  //   if (isGameScoreVisible) {
-  //     setIsGameScoreVisible(false);
-  //   } else {
-  //     if (window.confirm('Reveal data?')) {
-  //       setIsGameScoreVisible(true);
-  //     }
-  //   }
-  // };
 
 useEffect(() => {
   const gameEventAnalysis = () => {
