@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
+import { saveCompletedGamesToLocalStorage, getCompletedGamesFromLocalStorage } from '@/libs/api';
 
 const Index = ({ games, lineScoreActiveGame }) => {
   useEffect(() => console.log(games, 'allGames'), [games]);
@@ -61,15 +62,7 @@ const Index = ({ games, lineScoreActiveGame }) => {
             <h6>{seriesStatus}</h6>
             <h6>{gameTime}</h6>
             {isLive && (
-              <>
-                <h5>Line Score:</h5>
-                <p>
-                  {game.teams.away.team.name}: {game.lineScore.teams.away.runs}
-                </p>
-                <p>
-                  {game.teams.home.team.name}: {game.lineScore.teams.home.runs}
-                </p>
-              </>
+              <h5>{`${lineScoreActiveGame.inningHalf} ${lineScoreActiveGame.currentInningOrdinal}`}</h5>
             )}
           </S.Game>
         );
