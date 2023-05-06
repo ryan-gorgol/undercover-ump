@@ -5,8 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "start": "next start"
   },
   "dependencies": {
     "@types/node": "^20.1.0",
@@ -15,8 +14,6 @@
     "@types/styled-components": "^5.1.24",
     "autoprefixer": "10.4.14",
     "axios": "^1.4.0",
-    "eslint": "8.39.0",
-    "eslint-config-next": "13.3.4",
     "next": "^13.4.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
