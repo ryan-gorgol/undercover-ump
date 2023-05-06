@@ -56,6 +56,6 @@ const S_Body = styled.body`
   display: flex;
   justify-content: center;
   align-items: center;
-  background: white;
+  background: #0e3386;
   color: #0e3386;
 `

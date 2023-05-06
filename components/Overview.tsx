@@ -17,8 +17,8 @@ const Matchup = ({ date, venue, weather, firstPitch, excitementScore, gameTime, 
   const getLeftPosition = (excitementScore: number, initial=false) => {
     if (initial) return "0%"
 
-    const minScore = 65;
-    const maxScore = 150;
+    const minScore = 75;
+    const maxScore = 125;
     const range = maxScore - minScore;
     const percentage = ((excitementScore - minScore) / range) * 100;
     return `${percentage}%`;
@@ -62,6 +62,7 @@ export default Matchup
 const S = {
   EventInfo: styled.div`
     width: calc(100% - 1rem);
+    max-width: 600px;
     height: fit-content;
     background: var(--cubbie_blue);
     color: white;
@@ -143,7 +144,7 @@ const S = {
     div {
       box-sizing: border-box;
       background-color: var(--cubbie_blue);
-      position: absolute;
+      position: relative;
       margin-left: 0.5rem;
       display: flex;
       border: 1px solid var(--cubbie_red);
