@@ -15,4 +15,7 @@
 
   --vw_full_width: calc(100 * var(--vw));
   --vh_full_height: calc(100 * var(--vh));
+
+  --cubbie_blue: #0e3386;
+  --cubbie_red: 
 }

@@ -27,7 +27,7 @@ const GameCard = ({
   return (
     <S.Game
     key={game.gamePk}
-    onClick={() => onclick}
+    onClick={onClick}
     ref={isToday ? todayGameRef : null}
   >
     <h4>{gameDate}</h4>

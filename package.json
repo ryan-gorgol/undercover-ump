@@ -9,10 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@types/styled-components": "^5.1.24",
-    "@types/node": "18.16.3",
-    "@types/react": "18.2.1",
+    "@types/node": "^20.1.0",
+    "@types/react": "^18.2.5",
     "@types/react-dom": "18.2.2",
+    "@types/styled-components": "^5.1.24",
     "autoprefixer": "10.4.14",
     "axios": "^1.4.0",
     "eslint": "8.39.0",
@@ -21,6 +21,10 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "styled-components": "^5.3.10",
-    "typescript": "5.0.4"
+    "typescript": "^5.0.4"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.21.8",
+    "@babel/preset-typescript": "^7.21.5"
   }
 }

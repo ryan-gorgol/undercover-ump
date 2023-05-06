@@ -1,9 +1,7 @@
 import '../styles/globals.css'
 import '../styles/normalize.css'
 
-import type { AppProps } from 'next/app'
-
-const MyApp = ({ Component, pageProps }: AppProps) => {
+const MyApp = ({ Component, pageProps }) => {
 
   if (typeof window !== 'undefined') {
 
