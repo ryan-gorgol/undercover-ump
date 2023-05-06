@@ -258,26 +258,28 @@ if (awayStartingPitcherId) {
   
   return (
     <S.Container>
-      <Overview
-        date={date}
-        venue={venue}
-        weather={weather}
-        firstPitch={firstPitch}
-        excitementScore={excitementScore}
-        gameTime={gameTime}
-        attendance={attendance}
-      />
+      <S.Wrap>
+        <Overview
+          date={date}
+          venue={venue}
+          weather={weather}
+          firstPitch={firstPitch}
+          excitementScore={excitementScore}
+          gameTime={gameTime}
+          attendance={attendance}
+        />
 
-      <Matchup
-        homeTeamName={homeTeamName}
-        awayTeamName={awayTeamName}
-        homeStartingPitcher={homeStartingPitcher}
-        awayStartingPitcher={awayStartingPitcher}
-        gameOffenseScore={gameOffenseScore}
-        gameDefenseScore={gameDefenseScore}
-        homeScore={homeScore}
-        awayScore={awayScore}
-      />
+        <Matchup
+          homeTeamName={homeTeamName}
+          awayTeamName={awayTeamName}
+          homeStartingPitcher={homeStartingPitcher}
+          awayStartingPitcher={awayStartingPitcher}
+          gameOffenseScore={gameOffenseScore}
+          gameDefenseScore={gameDefenseScore}
+          homeScore={homeScore}
+          awayScore={awayScore}
+        />
+      </S.Wrap>
     </S.Container>
   );
 }
@@ -285,6 +287,15 @@ if (awayStartingPitcherId) {
 const S = {
   Container: styled.div`
     width: var(--vw_full_width);
-    height: var(--vh_full_height);
-  `
+    height: 100%;
+    background-color: var(--cubbie_blue_dark);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  `,
+  Wrap: styled.div`
+    width: 100%;
+    max-width: 600px;
+    box-shadow: 0px 0px 6px #081e52;
+`,
 }

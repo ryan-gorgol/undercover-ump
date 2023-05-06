@@ -1,5 +1,7 @@
 import React from 'react'
 import axios from 'axios'
+import styled from 'styled-components'
+
 import Game from '../../../components/Game'
 
 export default function Index({ boxScore, lineScore }) {
@@ -8,7 +10,9 @@ export default function Index({ boxScore, lineScore }) {
   console.log(lineScore, 'line')
 
   return (
-     <Game boxScore={boxScore} lineScore={lineScore} />
+    <S.Wrap>
+      <Game boxScore={boxScore} lineScore={lineScore} />
+    </S.Wrap>
   )
 }
 
@@ -43,4 +47,11 @@ export async function getServerSideProps(context) {
       },
     };
   }
+}
+
+const S = {
+  Wrap: styled.div`
+    width: 100%;
+    max-width: 600px;
+  `,
 }

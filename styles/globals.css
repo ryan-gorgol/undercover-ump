@@ -17,5 +17,6 @@
   --vh_full_height: calc(100 * var(--vh));
 
   --cubbie_blue: #0e3386;
-  --cubbie_red: 
+  --cubbie_blue_dark: #0a286d;
+  --cubbie_red: #CC3433;
 }

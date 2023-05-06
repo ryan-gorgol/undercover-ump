@@ -63,7 +63,7 @@ const S = {
   EventInfo: styled.div`
     width: calc(100% - 1rem);
     height: fit-content;
-    background: #0E3386;
+    background: var(--cubbie_blue);
     color: white;
     display: flex;
     flex-direction: column;
@@ -142,11 +142,11 @@ const S = {
 
     div {
       box-sizing: border-box;
-      background-color: #0E3386;
+      background-color: var(--cubbie_blue);
       position: absolute;
       margin-left: 0.5rem;
       display: flex;
-      border: 1px solid #CC3433;
+      border: 1px solid var(--cubbie_red);
       border-radius: 0.25rem;
       width: fit-content;
       padding: 0.5rem;

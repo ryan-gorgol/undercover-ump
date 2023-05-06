@@ -1,7 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
+
 import GameCard from '@/components/GameCard';
 
 const Index = ({ games, lineScoreActiveGame }) => {
@@ -37,36 +38,38 @@ const Index = ({ games, lineScoreActiveGame }) => {
 
   return (
     <S.Container >
-      {filteredGames.map((game) => {
-        const gameDate = new Date(game.gameDate).toLocaleDateString();
-        const gameTime = new Date(game.gameDate).toLocaleTimeString('en-US', {
-          hour: 'numeric',
-          minute: '2-digit',
-          hour12: true,
-        });
+      <S.Wrap>
+        {filteredGames.map((game) => {
+          const gameDate = new Date(game.gameDate).toLocaleDateString();
+          const gameTime = new Date(game.gameDate).toLocaleTimeString('en-US', {
+            hour: 'numeric',
+            minute: '2-digit',
+            hour12: true,
+          });
 
-        const isToday = new Date().toLocaleDateString() === gameDate;
-        const isLive = game.status.abstractGameState === 'Live';
+          const isToday = new Date().toLocaleDateString() === gameDate;
+          const isLive = game.status.abstractGameState === 'Live';
 
-        const seriesStatus = `${game?.seriesGameNumber} of ${game?.gamesInSeries}`;
+          const seriesStatus = `${game?.seriesGameNumber} of ${game?.gamesInSeries}`;
 
 
-        return (
-          <GameCard
-            key={game.gamePk}
-            onClick={() => handleClick(game.gamePk)}
-            ref={isToday ? todayGameRef : null}
-            game={game}
-            lineScoreActiveGame={lineScoreActiveGame}
-            isToday={isToday}
-            isLive={isLive}
-            todayGameRef={todayGameRef}
-            gameDate={gameDate}
-            gameTime={gameTime}
-            seriesStatus={seriesStatus}
-          />
-        );
-      })}
+          return (
+            <GameCard
+              key={game.gamePk}
+              onClick={() => handleClick(game.gamePk)}
+              ref={isToday ? todayGameRef : null}
+              game={game}
+              lineScoreActiveGame={lineScoreActiveGame}
+              isToday={isToday}
+              isLive={isLive}
+              todayGameRef={todayGameRef}
+              gameDate={gameDate}
+              gameTime={gameTime}
+              seriesStatus={seriesStatus}
+            />
+          );
+        })}
+      </S.Wrap>
     </S.Container>
   );
 };
@@ -127,6 +130,9 @@ const S = {
     padding: 1rem;
     width: calc(100% - 2rem);
     height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background: white;
     color: #0e3386;
 
@@ -138,6 +144,11 @@ const S = {
       margin: 0.5rem 0;
       font-weight: 500;
     }
+  `,
+  Wrap: styled.div`
+    width: 100%;
+    max-width: 600px;
+    
   `,
   Game: styled.div`
     margin-bottom: 1rem;
