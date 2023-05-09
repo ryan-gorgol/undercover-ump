@@ -117,7 +117,6 @@ export default function BoxScoreComponent({ boxScore, lineScore }: any) {
           (player: any) => player.stats.pitching.inningsPitched >= 5
         );
 
-        console.log(startingPitchers, 'SPs')
 
         return startingPitchers.every((pitcher: any) => {
           const inningsPitched = pitcher.stats.pitching.inningsPitched;

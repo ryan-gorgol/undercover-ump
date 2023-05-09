@@ -21,7 +21,19 @@ const Matchup = ({ date, venue, weather, firstPitch, excitementScore, gameTime, 
     const maxScore = 125;
     const range = maxScore - minScore;
     const percentage = ((excitementScore - minScore) / range) * 100;
-    return `${percentage}%`;
+
+    console.log(percentage, 'percentage')
+
+
+    if (percentage >= 92) {
+      console.log(percentage, 'ifCall')
+      return `90%`
+    }
+    else {
+      console.log(percentage, 'elseCall')
+      return `${percentage}%`
+    }
+    
   }
 
   useEffect(() => {
@@ -123,7 +135,8 @@ const S = {
     }
   `,
   Score: styled.div`
-    padding: 1rem 0.5rem;
+    padding: 0rem;
+    margin: 0 1rem;
     padding-bottom: 0.5rem;
     width: calc(100% - 1rem);
     height: 4rem;
@@ -134,7 +147,7 @@ const S = {
     
 
     h6 {
-      margin: 1rem 0.5rem;
+      margin: 1rem 0;
       font-size: 1rem;
       text-shadow: 0px 1px 3px #0b2561,
                    0px 2px 6px #0b2561,
