@@ -73,14 +73,14 @@ export default Matchup
 
 const S = {
   EventInfo: styled.div`
-    width: calc(100% - 1rem);
+    width: calc(100% - 2rem);
     max-width: 600px;
     height: fit-content;
     background: var(--cubbie_blue);
     color: white;
     display: flex;
     flex-direction: column;
-    padding: 2rem 0.5rem;
+    padding: 2rem 1rem;
     box-shadow: inset 0px -4px 2px #0b2561,
                 inset 0px -8px 4px #0b256162,
                 inset 0px -12px 6px #0b256162;
@@ -92,13 +92,12 @@ const S = {
   `,
   Date: styled.h2`
     margin: 0;
-    padding: 0 1rem;
     color: #fff;
     font-size: 2rem;
   `,
   Venue: styled.div`
     margin: 0;
-    padding: 1rem 1rem 0.5rem 1rem;
+    padding: 1rem 0 0.5rem 0;
     color: #B6CEF6;
     font-weight: 200;
     font-size: 1.25rem;
@@ -106,7 +105,7 @@ const S = {
   `,
   Weather: styled.div`
     margin: 0;
-    padding: 0 1rem;
+    padding: 0;
     color: #B6CEF6;
     font-weight: 200;
     font-size: 1.25rem;
@@ -114,7 +113,7 @@ const S = {
   `,
   FirstPitch: styled.div`
     margin: 0 0 1rem 0;
-    padding: 0.5rem 1rem;
+    padding: 0.5rem 0;
     color: #B6CEF6;
     font-weight: 200;
     font-size: 1.25rem;
@@ -123,7 +122,7 @@ const S = {
     min-height: 1.5rem;
     display: flex;
     margin: 0;
-    padding: 0rem 1rem;
+    padding: 0rem 0;
     color: #B6CEF6;
     font-weight: 200;
     font-size: 0.875rem;
@@ -136,8 +135,8 @@ const S = {
   `,
   Score: styled.div`
     padding: 0rem;
-    margin: 0 1rem;
-    padding-bottom: 0.5rem;
+    margin: 0;
+    padding-bottom: 0.4rem;
     width: calc(100% - 1rem);
     height: 4rem;
     diplay: flex;
