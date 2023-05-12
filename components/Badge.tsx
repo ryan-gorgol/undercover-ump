@@ -50,6 +50,6 @@ const TextContent = styled.div<StyledProps>`
   ${({ isTextVisible }) =>
     !isTextVisible &&
     `
-    filter: blur(8px);
+    color: white;
   `}
 `;
