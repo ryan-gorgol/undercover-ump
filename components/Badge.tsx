@@ -19,14 +19,14 @@ const Badge = ({ textContent }: Props) => {
   );
 };
 
-export default Badge;
+export default Badge
 
 interface StyledProps {
   isTextVisible: boolean;
 }
 
 const S = styled.div`
-  border: 2px solid #0e3386;
+  border: 2px solid var(--cubbie_blue);
   border-radius: 0.25rem;
   padding: 0.5rem;
   min-width: 2rem;
@@ -39,7 +39,12 @@ const S = styled.div`
   cursor: pointer;
 `;
 
-const TextContent = styled.span<StyledProps>`
+const TextContent = styled.div<StyledProps>`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   transition: filter 0.2s ease;  
   ${({ isTextVisible }) =>
     !isTextVisible &&

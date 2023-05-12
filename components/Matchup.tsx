@@ -56,9 +56,9 @@ const Matchup = ({
         <S.GameScore onClick={handleToggleGameScoreVisibility}>
           Final Away Score
           {isGameScoreVisible && (
-            <>
+            <S.ScoreText>
               <h4>{awayScore}</h4>
-            </>
+            </S.ScoreText>
           )}
         </S.GameScore>
 
@@ -80,9 +80,9 @@ const Matchup = ({
         <S.GameScore onClick={handleToggleGameScoreVisibility}>
           Final Home Score
           {isGameScoreVisible && (
-            <>
+            <S.ScoreText>
               <h4>{homeScore}</h4>
-            </>
+            </S.ScoreText>
           )}
         </S.GameScore>
 
@@ -154,6 +154,17 @@ const S = {
     height: 10rem;
     border: 2px solid #0E3386;
     border-radius: 0.25rem;
+
+    h4 {
+      font-size: 3rem;
+    }
+  `,
+  ScoreText: styled.div`
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   `,
   ExcitementScore: styled.div`
     margin-top: 0.5rem;
