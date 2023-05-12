@@ -54,7 +54,7 @@ const Matchup = ({
         </S.Scores> 
 
         <S.GameScore onClick={handleToggleGameScoreVisibility}>
-          Final Away Score
+          {!isGameScoreVisible && `Reveal Score`}
           {isGameScoreVisible && (
             <S.ScoreText>
               <h4>{awayScore}</h4>
@@ -78,7 +78,7 @@ const Matchup = ({
         </S.Scores> 
 
         <S.GameScore onClick={handleToggleGameScoreVisibility}>
-          Final Home Score
+          {!isGameScoreVisible && `Reveal Score`}
           {isGameScoreVisible && (
             <S.ScoreText>
               <h4>{homeScore}</h4>

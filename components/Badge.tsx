@@ -46,7 +46,7 @@ const TextContent = styled.div<StyledProps>`
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: filter 0.2s ease;  
+  transition: color 0.3s ease;  
   ${({ isTextVisible }) =>
     !isTextVisible &&
     `
