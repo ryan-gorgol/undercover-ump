@@ -151,19 +151,21 @@ const S = {
     margin-top: 1rem;
     padding: 1rem;
     width: calc(100% - 2rem);
-    height: 10rem;
     border: 2px solid #0E3386;
     border-radius: 0.25rem;
 
     h4 {
+      margin: 0;
       font-size: 3rem;
     }
   `,
   ScoreText: styled.div`
     width: 100%;
+    height: fit-content;
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 1rem 0;
   `,
   ExcitementScore: styled.div`
     margin-top: 0.5rem;

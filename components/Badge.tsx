@@ -42,6 +42,7 @@ const S = styled.div`
 const TextContent = styled.div<StyledProps>`
   width: 100%;
   height: 100%;
+  background: none;
   display: flex;
   justify-content: center;
   align-items: center;
