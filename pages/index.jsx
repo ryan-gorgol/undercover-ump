@@ -31,12 +31,12 @@ const Index = ({ games, lineScoreActiveGame }) => {
   const allDates = getDateRange(startDate, endDate).reverse();
 
   const filteredGames = games
-    .filter((game) => game.status.detailedState === 'Final' || 'Preview')
-    .sort((a, b) => {
-      const dateA = new Date(a.gameDate);
-      const dateB = new Date(b.gameDate);
-      return dateB - dateA;
-    });
+  .filter((game) => game.status.detailedState === 'Final' || game.status.detailedState === 'Preview')
+  .sort((a, b) => {
+    const dateA = new Date(a.gameDate);
+    const dateB = new Date(b.gameDate);
+    return dateB - dateA;
+  });
 
   useEffect(() => {
     if (todayGameRef.current) {
@@ -87,7 +87,7 @@ const Index = ({ games, lineScoreActiveGame }) => {
             );
           } else {
             // Render the OffDay component
-            return <S.OffDay key={date} />;
+            return <S.OffDay key={date}>{date}</S.OffDay>;
           }
         })}
       </S.Wrap>
@@ -182,8 +182,10 @@ const S = {
 
   `,
   OffDay: styled.div`
-    width: 100%;
+    width: calc(100% - 2rem + 4px);
     height: 5rem;
-    background: blue;
+    background: #0e32867b;
+    margin-bottom: 1rem;
+    border-radius: 0.5rem;
   `
 };
