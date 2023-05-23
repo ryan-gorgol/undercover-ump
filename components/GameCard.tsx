@@ -47,6 +47,7 @@ export default GameCard
 
 const S = {
   Game: styled.div`
+    width: calc(100% - 2rem);
     margin-bottom: 1rem;
     padding: 1rem;
     border: 2px solid #0e3386;

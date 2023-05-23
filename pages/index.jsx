@@ -54,19 +54,22 @@ const Index = ({ games, lineScoreActiveGame }) => {
 
 
           return (
-            <GameCard
-              key={game.gamePk}
-              onClick={() => handleClick(game.gamePk)}
-              ref={isToday ? todayGameRef : null}
-              game={game}
-              lineScoreActiveGame={lineScoreActiveGame}
-              isToday={isToday}
-              isLive={isLive}
-              todayGameRef={todayGameRef}
-              gameDate={gameDate}
-              gameTime={gameTime}
-              seriesStatus={seriesStatus}
-            />
+            <S.TabWrap>
+              <GameCard
+                key={game.gamePk}
+                onClick={() => handleClick(game.gamePk)}
+                ref={isToday ? todayGameRef : null}
+                game={game}
+                lineScoreActiveGame={lineScoreActiveGame}
+                isToday={isToday}
+                isLive={isLive}
+                todayGameRef={todayGameRef}
+                gameDate={gameDate}
+                gameTime={gameTime}
+                seriesStatus={seriesStatus}
+              />
+              <S.NavColumn />
+            </S.TabWrap>
           );
         })}
       </S.Wrap>
@@ -80,9 +83,9 @@ export async function getServerSideProps() {
   // Calculate startDate and endDate
   const currentDate = new Date();
   const startDate = new Date();
-  startDate.setDate(currentDate.getDate() - 20);
+  startDate.setDate(currentDate.getDate() - 27);
   const endDate = new Date();
-  endDate.setDate(currentDate.getDate() + 10);
+  endDate.setDate(currentDate.getDate() + 3);
 
   // Format dates as strings
   const startDateString = startDate.toISOString().split('T')[0];
@@ -150,10 +153,13 @@ const S = {
     max-width: 600px;
     
   `,
-  Game: styled.div`
-    margin-bottom: 1rem;
-    padding: 1rem;
-    border: 2px solid var(--cubbie_blue);
-    border-radius: 0.5rem;
+  NavColumn: styled.div`
+    width: 2rem;
+    height: 100%;
   `,
+  TabWrap: styled.div`
+    width: 100%;
+    display: flex;
+    
+  `
 };
