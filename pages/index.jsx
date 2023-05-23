@@ -6,18 +6,29 @@ import { useRouter } from 'next/router';
 import GameCard from '@/components/GameCard';
 
 const Index = ({ games, lineScoreActiveGame }) => {
-
-  useEffect(() => console.log(games, 'allGames'), [games]);
-  useEffect(() => console.log(lineScoreActiveGame, 'lineScoreActiveGame'), [lineScoreActiveGame]);
-
+  
   const router = useRouter();
   const todayGameRef = useRef(null);
 
   const handleClick = (gameId) => {
     console.log(gameId);
-
     router.push(`/game/${gameId}`);
   };
+
+  const getDateRange = (startDate, endDate) => {
+    const dates = [];
+    let currentDate = startDate;
+    while (currentDate <= endDate) {
+      dates.push(new Date(currentDate).toISOString().split('T')[0]);
+      currentDate.setDate(currentDate.getDate() + 1);
+    }
+    return dates;
+  };
+
+  const endDate = new Date();
+  const startDate = new Date();
+  startDate.setDate(endDate.getDate() - 30);
+  const allDates = getDateRange(startDate, endDate).reverse();
 
   const filteredGames = games
     .filter((game) => game.status.detailedState === 'Final' || 'Preview')
@@ -37,40 +48,47 @@ const Index = ({ games, lineScoreActiveGame }) => {
   }, [todayGameRef]);
 
   return (
-    <S.Container >
+    <S.Container>
       <S.Wrap>
-        {filteredGames.map((game) => {
-          const gameDate = new Date(game.gameDate).toLocaleDateString();
-          const gameTime = new Date(game.gameDate).toLocaleTimeString('en-US', {
-            hour: 'numeric',
-            minute: '2-digit',
-            hour12: true,
+        {allDates.map((date) => {
+          const game = filteredGames.find((game) => {
+            return new Date(game.gameDate).toISOString().split('T')[0] === date;
           });
 
-          const isToday = new Date().toLocaleDateString() === gameDate;
-          const isLive = game.status.abstractGameState === 'Live';
+          if (game) {
+            const gameDate = new Date(game.gameDate).toLocaleDateString();
+            const gameTime = new Date(game.gameDate).toLocaleTimeString('en-US', {
+              hour: 'numeric',
+              minute: '2-digit',
+              hour12: true,
+            });
 
-          const seriesStatus = `${game?.seriesGameNumber} of ${game?.gamesInSeries}`;
+            const isToday = new Date().toLocaleDateString() === gameDate;
+            const isLive = game.status.abstractGameState === 'Live';
 
+            const seriesStatus = `${game?.seriesGameNumber} of ${game?.gamesInSeries}`;
 
-          return (
-            <S.TabWrap>
-              <GameCard
-                key={game.gamePk}
-                onClick={() => handleClick(game.gamePk)}
-                ref={isToday ? todayGameRef : null}
-                game={game}
-                lineScoreActiveGame={lineScoreActiveGame}
-                isToday={isToday}
-                isLive={isLive}
-                todayGameRef={todayGameRef}
-                gameDate={gameDate}
-                gameTime={gameTime}
-                seriesStatus={seriesStatus}
-              />
-              <S.NavColumn />
-            </S.TabWrap>
-          );
+            return (
+              <S.TabWrap key={game.gamePk}>
+                <GameCard
+                  onClick={() => handleClick(game.gamePk)}
+                  ref={isToday ? todayGameRef : null}
+                  game={game}
+                  lineScoreActiveGame={lineScoreActiveGame}
+                  isToday={isToday}
+                  isLive={isLive}
+                  todayGameRef={todayGameRef}
+                  gameDate={gameDate}
+                  gameTime={gameTime}
+                  seriesStatus={seriesStatus}
+                />
+                <S.NavColumn />
+              </S.TabWrap>
+            );
+          } else {
+            // Render the OffDay component
+            return <S.OffDay key={date} />;
+          }
         })}
       </S.Wrap>
     </S.Container>
@@ -78,6 +96,7 @@ const Index = ({ games, lineScoreActiveGame }) => {
 };
 
 export default Index;
+
 
 export async function getServerSideProps() {
   // Calculate startDate and endDate
@@ -160,6 +179,11 @@ const S = {
   TabWrap: styled.div`
     width: 100%;
     display: flex;
-    
+
+  `,
+  OffDay: styled.div`
+    width: 100%;
+    height: 5rem;
+    background: blue;
   `
 };
