@@ -182,7 +182,8 @@ const S = {
 
   `,
   OffDay: styled.div`
-    width: calc(100% - 2rem + 4px);
+    width: calc(100% - 4rem + 4px);
+    padding: 1rem;
     height: 5rem;
     background: #0e32867b;
     margin-bottom: 1rem;
