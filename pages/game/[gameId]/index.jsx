@@ -52,6 +52,5 @@ export async function getServerSideProps(context) {
 const S = {
   Wrap: styled.div`
     width: 100%;
-    max-width: 600px;
   `,
 }

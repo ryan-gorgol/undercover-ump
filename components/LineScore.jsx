@@ -71,30 +71,38 @@ const S = {
     width: 100%;
     color: white;
     border-collapse: collapse;
+    margin-top: 2rem;
+    margin-bottom: 8rem;
   `,
   HeaderCell: styled.th`
     padding: 0.25rem;
-    border: 1px solid #fff;
+    border: 1px solid #ffffff7f;
     text-align: center;
-    font-size: 0.5rem;
+    font-size: 0.75rem;
     font-weight: 200;
   `,
   LabelCell: styled.td`
     font-size: 0.75rem;
     font-weight: 400;
     padding: 0.125rem;
-    border: 1px solid #fff;
-    text-align: right;
+    border: 1px solid #ffffff7f;
+    text-align: center;
+    width: calc(var(--vw) * 10);
   `,
   BodyCell: styled.td`
     padding: 0.25rem;
-    border: 1px solid #fff;
+    border: 1px solid #ffffff7f;
     text-align: center;
     cursor: pointer;
-    background-color: ${props => (props.visible ? "" : "#ccc")};
+    background-color: ${props => (props.visible ? "" : "#273f68")};
     font-size: 0.75rem;
+    width: calc(var(--vw) * 10);
+    height: calc(var(--vh) * 5);
 
-  `,
-};
+    @media (orientation: landscape) {
+      height: calc(var(--vh) * 15);
+    }
+  `
+}
 
 export default LineScore;

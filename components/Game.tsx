@@ -307,7 +307,6 @@ const S = {
   `,
   Wrap: styled.div`
     width: 100%;
-    max-width: 600px;
     box-shadow: 0px 0px 6px #081e52;
 `,
 }

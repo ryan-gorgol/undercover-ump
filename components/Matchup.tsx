@@ -40,7 +40,7 @@ const Matchup = ({
     <S.Page>
       <S.Team>
         <S.TeamName>{awayTeamName}</S.TeamName>
-        <S.Pitcher>SP {awayStartingPitcher}</S.Pitcher>
+        <S.Pitcher>{awayStartingPitcher}</S.Pitcher>
         <S.Scores>
           <div>
             <h4>Offense Action</h4>
@@ -53,19 +53,19 @@ const Matchup = ({
           </div>
         </S.Scores> 
 
-        <S.GameScore onClick={handleToggleGameScoreVisibility}>
+        {/* <S.GameScore onClick={handleToggleGameScoreVisibility}>
           {!isGameScoreVisible && `Reveal Score`}
           {isGameScoreVisible && (
             <S.ScoreText>
               <h4>{awayScore}</h4>
             </S.ScoreText>
           )}
-        </S.GameScore>
+        </S.GameScore> */}
 
       </S.Team>
       <S.Team>
         <S.TeamName>{homeTeamName}</S.TeamName>
-        <S.Pitcher>SP {homeStartingPitcher}</S.Pitcher>
+        <S.Pitcher>{homeStartingPitcher}</S.Pitcher>
         <S.Scores>
           <div>
             <h4>Offense Action</h4>
@@ -77,14 +77,14 @@ const Matchup = ({
           </div>
         </S.Scores> 
 
-        <S.GameScore onClick={handleToggleGameScoreVisibility}>
+        {/* <S.GameScore onClick={handleToggleGameScoreVisibility}>
           {!isGameScoreVisible && `Reveal Score`}
           {isGameScoreVisible && (
             <S.ScoreText>
               <h4>{homeScore}</h4>
             </S.ScoreText>
           )}
-        </S.GameScore>
+        </S.GameScore> */}
 
       </S.Team>
     </S.Page>
@@ -96,17 +96,19 @@ export default Matchup
 
 const S = {
   Page: styled.div`
-    width: calc(100% - 1rem);
+    width: 100%;
     height: fit-content;
     background: white;
     color: black;
     display: flex;
-    padding: 1rem 0.5rem;
   `,
   Team: styled.div`
     width: 100%;
-    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     padding: 1rem;
+
   `,
   TeamName: styled.h1`
     margin: 0;

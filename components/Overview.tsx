@@ -73,7 +73,6 @@ export default Matchup
 const S = {
   EventInfo: styled.div`
     width: calc(100% - 2rem);
-    max-width: 600px;
     height: fit-content;
     background: var(--cubbie_blue);
     color: white;
@@ -92,13 +91,14 @@ const S = {
   Date: styled.h2`
     margin: 0;
     color: #fff;
-    font-size: 2rem;
+    font-size: 1.75rem;
+    font-weight: 400;
   `,
   Venue: styled.div`
     margin: 0;
     padding: 1rem 0 0.5rem 0;
     color: #B6CEF6;
-    font-weight: 200;
+    font-weight: 300;
     font-size: 1.25rem;
     text-transform: uppercase;
   `,
@@ -106,7 +106,7 @@ const S = {
     margin: 0;
     padding: 0;
     color: #B6CEF6;
-    font-weight: 200;
+    font-weight: 300;
     font-size: 1.25rem;
 
   `,
@@ -114,7 +114,7 @@ const S = {
     margin: 0 0 1rem 0;
     padding: 0.5rem 0;
     color: #B6CEF6;
-    font-weight: 200;
+    font-weight: 300;
     font-size: 1.25rem;
   `,
   Secondary: styled.div`
@@ -123,7 +123,7 @@ const S = {
     margin: 0;
     padding: 0rem 0;
     color: #B6CEF6;
-    font-weight: 200;
+    font-weight: 300;
     font-size: 0.875rem;
     text-transform: uppercase;
 
@@ -147,9 +147,12 @@ const S = {
     h6 {
       margin: 1rem 0;
       font-size: 1rem;
+      font-weight: 300;
+      letter-spacing: 0.075rem;
       text-shadow: 0px 1px 3px #0b2561,
                    0px 2px 6px #0b2561,
                    0px 3px 9px #0b2561;
+
     }
 
     div {
