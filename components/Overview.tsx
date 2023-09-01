@@ -81,7 +81,9 @@ const S = {
     padding: 2rem 1rem;
     box-shadow: inset 0px -4px 2px #0b2561,
                 inset 0px -8px 4px #0b256162,
-                inset 0px -12px 6px #0b256162;
+                inset 0px -12px 6px #0b256162,
+                0px 0px 6px #081e52;
+                
   `,
   Overview: styled.div`
     text-shadow: 0px 1px 3px #0b2561,

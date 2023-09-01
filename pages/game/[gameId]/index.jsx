@@ -11,7 +11,9 @@ export default function Index({ boxScore, lineScore }) {
 
   return (
     <S.Wrap>
-      <Game boxScore={boxScore} lineScore={lineScore} />
+      <S.Container>
+        <Game boxScore={boxScore} lineScore={lineScore} />
+      </S.Container>
     </S.Wrap>
   )
 }
@@ -52,5 +54,19 @@ export async function getServerSideProps(context) {
 const S = {
   Wrap: styled.div`
     width: 100%;
+    background-color: var(--cubbie_blue_dark);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  `,
+  Container: styled.div`
+    padding:  0 1rem;
+    width: 100%;
+
+    @media (min-width: 768px) {
+      padding: 0;
+      width: calc(100% - 4rem);
+      max-width: 800px;
+    }
   `,
 }

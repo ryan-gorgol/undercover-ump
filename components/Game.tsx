@@ -298,7 +298,7 @@ export default function BoxScoreComponent({ boxScore, lineScore }: any) {
 
 const S = {
   Container: styled.div`
-    width: var(--vw_full_width);
+    width: 100%;
     height: 100%;
     background-color: var(--cubbie_blue_dark);
     display: flex;
@@ -307,6 +307,6 @@ const S = {
   `,
   Wrap: styled.div`
     width: 100%;
-    box-shadow: 0px 0px 6px #081e52;
+    
 `,
 }
