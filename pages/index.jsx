@@ -1,42 +1,28 @@
 import React, { useEffect, useRef } from 'react';
-import axios from 'axios';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
 
+import { fetchGames, formatDate, getDateRange } from '@/libs/helper';
 import GameCard from '@/components/GameCard';
 
 const Index = ({ games, lineScoreActiveGame }) => {
-  
   const router = useRouter();
   const todayGameRef = useRef(null);
 
   const handleClick = (gameId) => {
-    console.log(gameId);
     router.push(`/game/${gameId}`);
   };
 
-  const getDateRange = (startDate, endDate) => {
-    const dates = [];
-    let currentDate = startDate;
-    while (currentDate <= endDate) {
-      dates.push(new Date(currentDate).toISOString().split('T')[0]);
-      currentDate.setDate(currentDate.getDate() + 1);
-    }
-    return dates;
-  };
-
+  // Generate date range from -30 days to now
   const endDate = new Date();
   const startDate = new Date();
-  startDate.setDate(endDate.getDate() - 30);
+  startDate.setDate(endDate.getDate() - 5);
   const allDates = getDateRange(startDate, endDate).reverse();
 
+  // Filter and sort games
   const filteredGames = games
-  .filter((game) => game.status.detailedState === 'Final' || game.status.detailedState === 'Preview')
-  .sort((a, b) => {
-    const dateA = new Date(a.gameDate);
-    const dateB = new Date(b.gameDate);
-    return dateB - dateA;
-  });
+    .filter((game) => ['Final', 'Preview', 'In Progress'].includes(game.status.detailedState))
+    .sort((a, b) => new Date(b.gameDate) - new Date(a.gameDate));
 
   useEffect(() => {
     if (todayGameRef.current) {
@@ -45,10 +31,15 @@ const Index = ({ games, lineScoreActiveGame }) => {
         block: 'center',
       });
     }
-  }, [todayGameRef]);
+
+    console.log('games', games);
+  }, []);
 
   return (
     <S.Container>
+      <S.Header>
+        Your Header Content Here
+      </S.Header>
       <S.Wrap>
         {allDates.map((date) => {
           const game = filteredGames.find((game) => {
@@ -87,7 +78,7 @@ const Index = ({ games, lineScoreActiveGame }) => {
             );
           } else {
             // Render the OffDay component
-            return <S.OffDay key={date}>{date}</S.OffDay>;
+            return <S.OffDay key={date}>No game on {date}</S.OffDay>;
           }
         })}
       </S.Wrap>
@@ -99,39 +90,25 @@ export default Index;
 
 
 export async function getServerSideProps() {
-  // Calculate startDate and endDate
+  // Calculate startDate and endDate to fetch data for the last 5 days and next 2 days
   const currentDate = new Date();
   const startDate = new Date();
-  startDate.setDate(currentDate.getDate() - 27);
+  startDate.setDate(currentDate.getDate() - 5);
   const endDate = new Date();
-  endDate.setDate(currentDate.getDate() + 3);
+  endDate.setDate(currentDate.getDate() + 2);
 
   // Format dates as strings
-  const startDateString = startDate.toISOString().split('T')[0];
-  const endDateString = endDate.toISOString().split('T')[0];
+  const startDateString = formatDate(startDate);
+  const endDateString = formatDate(endDate);
 
   const teamId = 112;
-  const apiUrl = `http://statsapi.mlb.com/api/v1/schedule?sportId=1&team_ids=${teamId}&startDate=${startDateString}&endDate=${endDateString}`;
 
   try {
-    const response = await axios.get(apiUrl);
-    const allGames = response.data.dates.flatMap((date) => date.games);
-    const games = allGames.filter(
-      (game) => game.teams.away.team.id === teamId || game.teams.home.team.id === teamId
-    );
-
-    const liveGame = games.find((game) => game.status.abstractGameState === 'Live');
-
-    let lineScoreActiveGame = null;
-    if (liveGame) {
-      const lineScoreApiUrl = `http://statsapi.mlb.com/api/v1/game/${liveGame.gamePk}/linescore`;
-      const lineScoreResponse = await axios.get(lineScoreApiUrl);
-      lineScoreActiveGame = lineScoreResponse.data;
-    }
+    const { games, lineScoreActiveGame } = await fetchGames(startDateString, endDateString, teamId);
 
     return {
       props: {
-        games: games,
+        games,
         lineScoreActiveGame,
       },
     };
@@ -147,13 +124,14 @@ export async function getServerSideProps() {
   }
 }
 
+
 const S = {
   Container: styled.div`
-    padding: 1rem;
+    padding:  0 1rem;
     width: calc(100% - 2rem);
     height: 100%;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
     background: white;
     color: #0e3386;
@@ -166,26 +144,35 @@ const S = {
       margin: 0.5rem 0;
       font-weight: 500;
     }
+  `,Header: styled.header`
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    width: 100%;
+    background: #0e3386;
+    color: white;
+    padding: 1rem;
+    text-align: center;
   `,
   Wrap: styled.div`
     width: 100%;
     max-width: 600px;
-    
+    padding-top: 1rem;  // to make sure content is not hidden under the sticky header
   `,
   NavColumn: styled.div`
     width: 2rem;
     height: 100%;
   `,
   TabWrap: styled.div`
-    width: 100%;
+    width: 100%; 
     display: flex;
 
   `,
   OffDay: styled.div`
     width: calc(100% - 4rem + 4px);
     padding: 1rem;
-    height: 5rem;
-    background: #0e32867b;
+    height: 1.2rem;
+    background: #0e328648;
     margin-bottom: 1rem;
     border-radius: 0.5rem;
   `

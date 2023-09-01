@@ -3,6 +3,7 @@ import axios from 'axios'
 import styled from 'styled-components'
 import Overview from './Overview'
 import Matchup from './Matchup'
+import LineScore from './LineScore'
 
 export default function BoxScoreComponent({ boxScore, lineScore }: any) {
   // gather key data
@@ -15,6 +16,12 @@ export default function BoxScoreComponent({ boxScore, lineScore }: any) {
 
   const gameTime = timeObj ? timeObj.value : '';
   const attendance = attendanceObj ? attendanceObj.value : '';
+
+  const innings = lineScore?.innings;
+
+  useEffect(() => {
+    console.log(lineScore, 'lineScore')
+  }, [lineScore])
 
   // calculate these variables as data returned by the api is inconsistent
   let weather = '';
@@ -176,84 +183,84 @@ export default function BoxScoreComponent({ boxScore, lineScore }: any) {
     calculateCompetitiveGame()
   }, [awayScore, boxScore, lineScore, homeScore])
 
-useEffect(() => {
-  const gameEventAnalysis = () => {
-    const homeTeamStats = boxScore?.teams?.home?.teamStats;
-    const awayTeamStats = boxScore?.teams?.away?.teamStats;
+  useEffect(() => {
+    const gameEventAnalysis = () => {
+      const homeTeamStats = boxScore?.teams?.home?.teamStats;
+      const awayTeamStats = boxScore?.teams?.away?.teamStats;
 
-    const offenseWeights = {
-      rbi: 3,
-      homeRuns: 3,
-      hits: 1,
-      doubles: 2,
-      triples: 3,
-      stolenBases: 5,
-      atBats: 0.5,
-      baseOnBalls: 2,
-      hitByPitch: 5,
-      flyOuts: 1.5,
-      groundOuts: 1.5,
-      sacBunts: 10,
-      sacFlies: 6.5
-    };
+      const offenseWeights = {
+        rbi: 3,
+        homeRuns: 3,
+        hits: 1,
+        doubles: 2,
+        triples: 3,
+        stolenBases: 5,
+        atBats: 0.5,
+        baseOnBalls: 2,
+        hitByPitch: 5,
+        flyOuts: 1.5,
+        groundOuts: 1.5,
+        sacBunts: 10,
+        sacFlies: 6.5
+      };
 
-    const defenseWeights = {
-      assists: 1.8,
-      caughtStealing: 8,
-      errors: 5,
-      passedBall: 10,
-      groundOuts: 3.5,
-      airOuts: 3.5,
-      strikeOuts: 5,
-      completedGames: 10
-    };
+      const defenseWeights = {
+        assists: 1.8,
+        caughtStealing: 8,
+        errors: 5,
+        passedBall: 10,
+        groundOuts: 3.5,
+        airOuts: 3.5,
+        strikeOuts: 5,
+        completedGames: 10
+      };
 
-    const calculateScore = (homeTeamStats: any, awayTeamStats: any, weights: any, statCategories: string[]) => {
-      let homeScore = 0;
-      let awayScore = 0;
-      for (const factor in weights) {
-        for (const statCategory of statCategories) {
-          homeScore += (homeTeamStats[statCategory][factor] || 0) * weights[factor];
-          awayScore += (awayTeamStats[statCategory][factor] || 0) * weights[factor];
+      const calculateScore = (homeTeamStats: any, awayTeamStats: any, weights: any, statCategories: string[]) => {
+        let homeScore = 0;
+        let awayScore = 0;
+        for (const factor in weights) {
+          for (const statCategory of statCategories) {
+            homeScore += (homeTeamStats[statCategory][factor] || 0) * weights[factor];
+            awayScore += (awayTeamStats[statCategory][factor] || 0) * weights[factor];
+          }
         }
-      }
-      return { homeScore: Math.ceil(homeScore), awayScore: Math.ceil(awayScore) };
+        return { homeScore: Math.ceil(homeScore), awayScore: Math.ceil(awayScore) };
+      };
+
+
+      const offenseScores = calculateScore(homeTeamStats, awayTeamStats, offenseWeights, ['batting']);
+      const defenseScores = calculateScore(homeTeamStats, awayTeamStats, defenseWeights, ['pitching', 'fielding']);
+
+      return { offenseScores, defenseScores };
     };
 
+    const { offenseScores, defenseScores } = gameEventAnalysis();
+    setGameOffenseScore({ home: offenseScores.homeScore, away: offenseScores.awayScore });
+    setGameDefenseScore({ home: defenseScores.homeScore, away: defenseScores.awayScore });
 
-    const offenseScores = calculateScore(homeTeamStats, awayTeamStats, offenseWeights, ['batting']);
-    const defenseScores = calculateScore(homeTeamStats, awayTeamStats, defenseWeights, ['pitching', 'fielding']);
+  }, [boxScore])
 
-    return { offenseScores, defenseScores };
+  // find starting pitchers for the game
+  useEffect(() => {
+    const fetchPitcherData = async (id: number) => {
+    const apiUrl = `https://statsapi.mlb.com/api/v1/people/${id}`;
+    try {
+      const response = await axios.get(apiUrl);
+      const playerData = response.data.people[0];
+      return `${playerData?.firstName} ${playerData?.lastName}`;
+    } catch (error) {
+      console.error(error);
+      return '';
+    }
   };
 
-  const { offenseScores, defenseScores } = gameEventAnalysis();
-  setGameOffenseScore({ home: offenseScores.homeScore, away: offenseScores.awayScore });
-  setGameDefenseScore({ home: defenseScores.homeScore, away: defenseScores.awayScore });
-
-}, [boxScore])
-
-// find starting pitchers for the game
-useEffect(() => {
-  const fetchPitcherData = async (id: number) => {
-  const apiUrl = `https://statsapi.mlb.com/api/v1/people/${id}`;
-  try {
-    const response = await axios.get(apiUrl);
-    const playerData = response.data.people[0];
-    return `${playerData?.firstName} ${playerData?.lastName}`;
-  } catch (error) {
-    console.error(error);
-    return '';
+  if (homeStartingPitcherId) {
+    fetchPitcherData(homeStartingPitcherId).then((name) => setHomeStartingPitcher(name));
   }
-};
-
-if (homeStartingPitcherId) {
-  fetchPitcherData(homeStartingPitcherId).then((name) => setHomeStartingPitcher(name));
-}
-if (awayStartingPitcherId) {
-  fetchPitcherData(awayStartingPitcherId).then((name) => setAwayStartingPitcher(name));
-}
-}, [homeStartingPitcherId, awayStartingPitcherId]);
+  if (awayStartingPitcherId) {
+    fetchPitcherData(awayStartingPitcherId).then((name) => setAwayStartingPitcher(name));
+  }
+  }, [homeStartingPitcherId, awayStartingPitcherId]);
   
   return (
     <S.Container>
@@ -278,6 +285,12 @@ if (awayStartingPitcherId) {
           homeScore={homeScore}
           awayScore={awayScore}
         />
+        {innings &&
+          <LineScore
+            innings={innings}
+            homeTeamName={homeTeamName}
+            awayTeamName={awayTeamName}
+          />}
       </S.Wrap>
     </S.Container>
   );

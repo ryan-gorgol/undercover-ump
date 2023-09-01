@@ -14,32 +14,31 @@ interface Props {
 const Matchup = ({ date, venue, weather, firstPitch, excitementScore, gameTime, attendance }: Props) => {
   const [initialPosition, setInitialPosition] = useState(true);
   
-  const getLeftPosition = (excitementScore: number, initial=false) => {
-    if (initial) return "0%"
-
-    const minScore = 75;
+  const getLeftPosition = (excitementScore: number, initial = false) => {
+    if (initial) return "0%";
+  
+    const minScore = 55;
     const maxScore = 125;
     const range = maxScore - minScore;
-    const percentage = ((excitementScore - minScore) / range) * 100;
-
-    console.log(percentage, 'percentage')
-
-
-    if (percentage >= 92) {
-      console.log(percentage, 'ifCall')
-      return `90%`
-    }
-    else {
-      console.log(percentage, 'elseCall')
-      return `${percentage}%`
-    }
-    
-  }
+  
+    // Ensure that the excitementScore is within the defined range.
+    let boundedScore = Math.max(minScore, Math.min(maxScore, excitementScore));
+  
+    // Calculate the percentage based on the bounded excitement score.
+    // We scale the percentage to a maximum of 70% instead of 100%.
+    const percentage = ((boundedScore - minScore) / range) * 80;
+  
+    console.log(percentage, 'percentage');
+  
+    return `${percentage}%`;
+  };
+  
+  
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setInitialPosition(false);
-    }, 500);
+    }, 0);
 
     return () => {
       clearTimeout(timer);
